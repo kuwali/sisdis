@@ -86,7 +86,8 @@ const checkBodyHeader = (header) => {
     } else {
       try {
         const param = Number(header['content-length'].trim());
-      } catch (e) {
+      } catch (err) {
+        fs.appendFileSync('log.txt', `${socket.remoteAddress} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - ${err}\n`);
         return { success: false, error: 'badrequest', message: 'can not parse Content-Length as integer value' }
       }
     }
@@ -115,6 +116,7 @@ const processRequestBody = (socket, header) => {
     case '/hello-world':
       return fs.readFile('./hello-world.html', (err, html) => {
         if (err) {
+          fs.appendFileSync('log.txt', `${socket.remoteAddress} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - ${err}\n`);
           return responseNotFound(socket);
         }
         if (header['method'][0] === 'GET') {
@@ -134,6 +136,7 @@ const processRequestBody = (socket, header) => {
     case '/style':
       return fs.readFile('./style.css', (err, css) => {
         if (err) {
+          fs.appendFileSync('log.txt', `${socket.remoteAddress} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - ${err}\n`);
           return responseNotFound(socket);
         }
         if (header['method'][0] === 'GET') {
@@ -143,6 +146,7 @@ const processRequestBody = (socket, header) => {
     case '/background':
       return fs.readFile('./background.jpg', (err, image) => {
         if (err) {
+          fs.appendFileSync('log.txt', `${socket.remoteAddress} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - ${err}\n`);
           return responseNotFound(socket);
         }
         if (header['method'][0] === 'GET') {
