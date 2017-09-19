@@ -9,16 +9,16 @@ const PORT = 9000; // Change port here
 const server = net.createServer(socket => {
   socket.setEncoding('utf8');
 
-  socket.on('data', function (data) {
+  socket.on('data', (data) => {
     processRequest(socket, data);
   });
 
-  socket.on('end', function () {
-    console.log('tcp server disconnected');
+  socket.on('end', () => {
+    socket.end();
   });
 
-  socket.on('timeout', function () {
-    console.log('Request from ' + stream.remoteAddress + ' timed out.');
+  socket.on('timeout', () => {
+    fs.appendFileSync('log.txt', `${socket.remoteAddress} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Request timed out.`);
   });
 }).listen(PORT, HOST);
 
@@ -37,7 +37,8 @@ const processRequest = (socket, data) => {
   }
   header['post'] = data[data.length - 1].split('=');
   
-  console.log(header);
+  fs.appendFileSync('log.txt', `${socket.remoteAddress} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - ${JSON.stringify(header)}`);
+  
   let response = checkError(header);
   if (!response.success) {
     return responseError(socket, response);
