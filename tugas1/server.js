@@ -18,7 +18,7 @@ const server = net.createServer(socket => {
   });
 
   socket.on('timeout', () => {
-    fs.appendFileSync('log.txt', `${socket.remoteAddress} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Request timed out.`);
+    fs.appendFileSync('log.txt', `${socket.remoteAddress} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Request timed out.\n`);
   });
 }).listen(PORT, HOST);
 
@@ -37,7 +37,7 @@ const processRequest = (socket, data) => {
   }
   header['post'] = data[data.length - 1].split('=');
   
-  fs.appendFileSync('log.txt', `${socket.remoteAddress} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - ${JSON.stringify(header)}`);
+  fs.appendFileSync('log.txt', `${socket.remoteAddress} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - ${JSON.stringify(header)}\n`);
   
   let response = checkError(header);
   if (!response.success) {
