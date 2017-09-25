@@ -19,7 +19,7 @@ const server = net.createServer(socket => {
   });
 
   socket.on('timeout', () => {
-    fs.appendFileSync('log.txt', `${socket.remoteAddress} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Request timed out.\n`);
+    fs.appendFileSync(path.join(__dirname, './server.log'), `${socket.remoteAddress} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Request timed out.\n`);
   });
 }).listen(PORT, HOST);
 
@@ -38,7 +38,7 @@ const processRequest = (socket, data) => {
   }
   header['post'] = data[data.length - 1].split('=');
   
-  fs.appendFileSync('log.txt', `${socket.remoteAddress} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - ${JSON.stringify(header)}\n`);
+  fs.appendFileSync(path.join(__dirname, './response.log'), `${socket.remoteAddress} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - ${JSON.stringify(header)}\n`);
   
   let response = checkError(header);
   if (!response.success) {
@@ -88,7 +88,7 @@ const checkBodyHeader = (header) => {
       try {
         const param = Number(header['content-length'].trim());
       } catch (err) {
-        fs.appendFileSync('log.txt', `${socket.remoteAddress} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - ${err}\n`);
+        fs.appendFileSync(path.join(__dirname, './error.log'), `${socket.remoteAddress} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - ${err}\n`);
         return { success: false, error: 'badrequest', message: 'can not parse Content-Length as integer value' }
       }
     }
@@ -117,7 +117,7 @@ const processRequestBody = (socket, header) => {
     case '/hello-world':
       return fs.readFile(path.join(__dirname, './hello-world.html'), (err, html) => {
         if (err) {
-          fs.appendFileSync('log.txt', `${socket.remoteAddress} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - ${err}\n`);
+          fs.appendFileSync(path.join(__dirname, './error.log'), `${socket.remoteAddress} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - ${err}\n`);
           return responseNotFound(socket);
         }
         if (header['method'][0] === 'GET') {
@@ -137,7 +137,7 @@ const processRequestBody = (socket, header) => {
     case '/style':
       return fs.readFile(path.join(__dirname, './style.css'), (err, css) => {
         if (err) {
-          fs.appendFileSync('log.txt', `${socket.remoteAddress} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - ${err}\n`);
+          fs.appendFileSync('error.log', `${socket.remoteAddress} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - ${err}\n`);
           return responseNotFound(socket);
         }
         if (header['method'][0] === 'GET') {
@@ -147,7 +147,7 @@ const processRequestBody = (socket, header) => {
     case '/background':
       return fs.readFile(path.join(__dirname, './background.jpg'), (err, image) => {
         if (err) {
-          fs.appendFileSync('log.txt', `${socket.remoteAddress} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - ${err}\n`);
+          fs.appendFileSync(path.join(__dirname, './error.log'), `${socket.remoteAddress} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - ${err}\n`);
           return responseNotFound(socket);
         }
         if (header['method'][0] === 'GET') {
