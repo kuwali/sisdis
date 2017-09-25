@@ -1,6 +1,4 @@
 apps:
   - script   : tugas1/server.js
     name     : tugas1
-    instances: 0
-    exec_mode: cluster
     watch    : true

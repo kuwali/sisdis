@@ -1,0 +1,6 @@
+172.17.0.48 [2017-09-25 02:29:23] - {"method":["GET",["/"],"HTTP/1.1"],"host":"172.17.0.48:9000","user-agent":"curl/7.47.0","accept":"*/*","post":[""]}
+172.17.0.48 [2017-09-25 02:29:29] - {"method":["GET",["/"],"HTTP/1.1"],"host":"172.17.0.48:9000","user-agent":"curl/7.47.0","accept":"*/*","post":[""]}
+172.17.0.48 [2017-09-25 02:30:46] - {"method":["GET",["/"],"HTTP/1.1"],"host":"172.17.0.48:9000","user-agent":"curl/7.47.0","accept":"*/*","post":[""]}
+172.17.0.48 [2017-09-25 02:30:46] - {"method":["GET",["/hello-world"],"HTTP/1.1"],"host":"172.17.0.48:9000","user-agent":"curl/7.47.0","accept":"*/*","post":[""]}
+172.17.0.48 [2017-09-25 02:31:02] - {"method":["GET",["/hello-world"],"HTTP/1.1"],"host":"172.17.0.48:9000","user-agent":"curl/7.47.0","accept":"*/*","post":[""]}
+172.17.0.48 [2017-09-25 02:31:02] - Error: ENOENT: no such file or directory, open './hello-world.html'
