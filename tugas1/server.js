@@ -2,6 +2,7 @@
 
 const net = require('net');
 const fs = require('fs');
+const path = require('path');
 
 const HOST = '0.0.0.0';
 const PORT = 9000; // Change port here
@@ -114,7 +115,7 @@ const processRequestBody = (socket, header) => {
     case '/':
       return responseRedirect(socket, '/hello-world');
     case '/hello-world':
-      return fs.readFile('./hello-world.html', (err, html) => {
+      return fs.readFile(path.join(__dirname, './hello-world.html'), (err, html) => {
         if (err) {
           fs.appendFileSync('log.txt', `${socket.remoteAddress} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - ${err}\n`);
           return responseNotFound(socket);
@@ -134,7 +135,7 @@ const processRequestBody = (socket, header) => {
         }
       });
     case '/style':
-      return fs.readFile('./style.css', (err, css) => {
+      return fs.readFile(path.join(__dirname, './style.css'), (err, css) => {
         if (err) {
           fs.appendFileSync('log.txt', `${socket.remoteAddress} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - ${err}\n`);
           return responseNotFound(socket);
@@ -144,7 +145,7 @@ const processRequestBody = (socket, header) => {
         }
       });
     case '/background':
-      return fs.readFile('./background.jpg', (err, image) => {
+      return fs.readFile(path.join(__dirname, './background.jpg'), (err, image) => {
         if (err) {
           fs.appendFileSync('log.txt', `${socket.remoteAddress} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - ${err}\n`);
           return responseNotFound(socket);
