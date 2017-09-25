@@ -1,5 +1,7 @@
 'use strict';
 
+require('dotenv').config();
+
 const cluster = require('cluster');
 const express = require('express');
 const app = express();
@@ -16,7 +18,7 @@ if (cluster.isMaster) {
     res.send('Hello, World!');
   });
 
-  app.listen(3000, () => {
-    console.log(`Server is listening on port: 80`);
+  app.listen(process.env.PORT, () => {
+    console.log(`Server is listening on port: ${process.env.PORT}`);
   })
 }
