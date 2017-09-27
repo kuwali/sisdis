@@ -2,6 +2,7 @@
 
 require('dotenv').config();
 
+const bodyParser = require('body-parser');
 const cluster = require('cluster');
 const express = require('express');
 const app = express();
@@ -14,9 +15,13 @@ if (cluster.isMaster) {
       cluster.fork();
   }
 } else {
-  app.get('/', (req, res) => {
-    res.send('Hello, World!');
-  });
+  app.use(bodyParser.json());
+
+  app.post('/api/hello', require('./handlers/hello'));
+  app.get('/api/spesifikasi.yaml', require('./handlers/spesifikasi'));
+
+  app.get('/*', require('./handlers/404'));
+  app.post('/*', require('./handlers/404'));
 
   app.listen(process.env.PORT, () => {
     console.log(`Server is listening on port: ${process.env.PORT}`);

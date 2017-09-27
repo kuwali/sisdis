@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: '1.0'
+  version: '2.0'
   title: helloService
   license:
     name: GPL
@@ -51,8 +51,6 @@ paths:
           description: "successful operation"
           schema:
             $ref: "#/definitions/Plusoneret"
-        400:
-          description: "Not a number"
 definitions:
   Request:
     title: request
