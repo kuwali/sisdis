@@ -61,5 +61,7 @@ typings/
 # dotenv environment variables file
 .env
 
+# Counter file
+src/counter
 
 # End of https://www.gitignore.io/api/node
