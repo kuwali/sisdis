@@ -9,6 +9,6 @@ module.exports = (req, res) => {
     status: 404,
     title: 'Not Found'
   };
-  fs.writeFileSync(path.join(__dirname, '../error.log'), `${req.headers.host} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Error: 404`);
+  fs.writeFileSync(path.join(__dirname, '../error.log'), `${req.headers['x-forwarded-for'] || req.connection.remoteAddress} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Error: 404`);
   return res.status(404).send(responseModel);
 };
