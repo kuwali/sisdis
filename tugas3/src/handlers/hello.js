@@ -36,7 +36,7 @@ module.exports = (req, res) => {
           // };
         })
         .then(event => {
-          event = JSON.parse(event);
+          event = JSON.parse(event.text);
           return fs.readFileAsync(path.join(__dirname, '../counter'))
             .then(counter => {
               fs.writeFileSync(path.join(__dirname, '../counter'), `${++counter}`);
