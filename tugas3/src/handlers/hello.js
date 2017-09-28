@@ -41,7 +41,7 @@ module.exports = (req, res) => {
             .then(counter => {
               fs.writeFileSync(path.join(__dirname, '../counter'), `${++counter}`);
               const responseModel = {
-                apiversion: '2.0',
+                apiversion: 2.0,
                 count: counter,
                 currentvisit: event.datetime,
                 response: `Good ${event.state}, ${data}`
