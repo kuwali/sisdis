@@ -9,10 +9,12 @@ module.exports = (req, res) => {
       const responseModel = {
         detail: `File spesifikasi.yaml error: ${err}`,
         status: 400,
-        title: "Bad Request"
-      }
+        title: 'Bad Request'
+      };
+      fs.writeFileSync(path.join(__dirname, '../error.log'), `${req.headers.host} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Error: ${responseModel}`);
       return res.status(400).json(responseModel);
     }
+    fs.writeFileSync(path.join(__dirname, '../response.log'), `${req.headers.host} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Success send spesifikasi.yaml`);
     return res.send(file);
-  })
-}
+  });
+};

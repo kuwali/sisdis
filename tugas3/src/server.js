@@ -12,12 +12,13 @@ if (cluster.isMaster) {
   const cpuCount = require('os').cpus().length;
   // Create a worker for each CPU
   for (var i = 0; i < cpuCount; i += 1) {
-      cluster.fork();
+    cluster.fork();
   }
 } else {
   app.use(bodyParser.json());
 
   app.post('/api/hello', require('./handlers/hello'));
+  app.get('/api/plus_one/:counter(\\d+)', require('./handlers/plusone'));
   app.get('/api/spesifikasi.yaml', require('./handlers/spesifikasi'));
 
   app.get('/*', require('./handlers/404'));
@@ -25,5 +26,5 @@ if (cluster.isMaster) {
 
   app.listen(process.env.PORT, () => {
     console.log(`Server is listening on port: ${process.env.PORT}`);
-  })
+  });
 }
