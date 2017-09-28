@@ -8,7 +8,7 @@ const url = '172.17.0.70:17088';
 
 module.exports = (req, res) => {
   if (req.headers['content-type'] !== 'application/json') {
-    fs.writeFileSync(path.join(__dirname, '../error.log'), `${req.headers['x-forwarded-for'] || req.connection.remoteAddress} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Error: not json`);
+    fs.appendFileSync(path.join(__dirname, '../error.log'), `${req.headers.host} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Error: not json`);
     const responseModel = {
       detail: 'Only consume JSON type',
       status: 405,
@@ -18,7 +18,7 @@ module.exports = (req, res) => {
   } else {
     const data = req.body.request;
     if (!data) {
-      fs.writeFileSync(path.join(__dirname, '../error.log'), `${req.headers['x-forwarded-for'] || req.connection.remoteAddress} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Error: request property not set`);
+      fs.appendFileSync(path.join(__dirname, '../error.log'), `${req.headers.host} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Error: request property not set`);
       const responseModel = {
         detail: "'request' is a required property",
         status: 400,
@@ -46,12 +46,12 @@ module.exports = (req, res) => {
                 currentvisit: event.datetime,
                 response: `Good ${event.state}, ${data}`
               };
-              fs.writeFileSync(path.join(__dirname, '../response.log'), `${req.headers['x-forwarded-for'] || req.connection.remoteAddress} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Success with: ${responseModel}`);
+              fs.appendFileSync(path.join(__dirname, '../response.log'), `${req.headers.host} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Success with: ${responseModel}`);
               return res.json(responseModel);
             });
         })
         .catch(err => {
-          fs.writeFileSync(path.join(__dirname, '../error.log'), `[${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Error: ${err}`);
+          fs.appendFileSync(path.join(__dirname, '../error.log'), `[${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Error: ${err}`);
           const responseModel = {
             detail: `Error: ${err}`,
             status: 400,

@@ -9,6 +9,6 @@ module.exports = (req, res) => {
     apiversion: 2,
     plusoneret: Number(data) + 1
   };
-  fs.writeFileSync(path.join(__dirname, '../response.log'), `${req.headers['x-forwarded-for'] || req.connection.remoteAddress} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Success with: ${responseModel}`);
+  fs.appendFileSync(path.join(__dirname, '../response.log'), `${req.headers['x-forwarded-for'] || req.connection.remoteAddress} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Success with: ${responseModel}`);
   return res.json(responseModel);
 };
