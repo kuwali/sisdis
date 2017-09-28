@@ -43,7 +43,7 @@ module.exports = (req, res) => {
               const responseModel = {
                 apiversion: 2,
                 count: counter,
-                currentvisit: new Date().toISOString(),
+                currentvisit: event.datetime,
                 response: `Good ${event.state}, ${data}`
               };
               fs.writeFileSync(path.join(__dirname, '../response.log'), `${req.headers.host} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Success with: ${responseModel}`);
