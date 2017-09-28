@@ -15,6 +15,7 @@ if (cluster.isMaster) {
     cluster.fork();
   }
 } else {
+  app.set('json spaces', 2);
   app.use(bodyParser.json());
 
   app.post('/api/hello', require('./handlers/hello'));

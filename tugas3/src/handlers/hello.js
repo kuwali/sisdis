@@ -39,10 +39,12 @@ module.exports = (req, res) => {
           event = JSON.parse(event.text);
           return fs.readFileAsync(path.join(__dirname, '../counter'))
             .then(counter => {
-              fs.writeFileSync(path.join(__dirname, '../counter'), `${++counter}`);
+              counter = JSON.parse(counter);
+              counter[data] ? ++counter[data] : counter[data] = 1;
+              fs.writeFileSync(path.join(__dirname, '../counter'), `${JSON.stringify(counter)}`);
               const responseModel = {
                 apiversion: 2.0,
-                count: counter,
+                count: counter[data],
                 currentvisit: event.datetime,
                 response: `Good ${event.state}, ${data}`
               };
