@@ -19,11 +19,13 @@ if (cluster.isMaster) {
   app.use(bodyParser.json());
 
   app.post('/api/hello', require('./handlers/hello'));
+  app.all('/api/hello', require('./handlers/405'));
   app.get('/api/plus_one/:counter(\\d+)', require('./handlers/plusone'));
+  app.all('/api/plus_one/:counter(\\d+)', require('./handlers/405'));
   app.get('/api/spesifikasi.yaml', require('./handlers/spesifikasi'));
+  app.all('/api/spesifikasi.yaml', require('./handlers/405'));
 
-  app.get('/*', require('./handlers/404'));
-  app.post('/*', require('./handlers/404'));
+  app.all('/*', require('./handlers/404'));
 
   app.listen(process.env.PORT, () => {
     console.log(`Server is listening on port: ${process.env.PORT}`);
