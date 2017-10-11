@@ -14,31 +14,30 @@ let counter;
 
 module.exports = {
   check () {
-    return Bluebird
-      .resolve()
-      .then(() => {
-        counter = 0;
-        return Bluebird.each(list, cabang => {
-          if (cabang.npm !== 'ko1') {
-            return request
-              .get(`${cabang.ip}/ewallet/ping`)
-              .then(response => {
-                if (response.pong === 1) {
-                  counter++;
-                }
-              });
-          }
-        })
-          .then(() => {
-            return counter;
-          });
+    return Bluebird.resolve().then(() => {
+      counter = 0;
+      return Bluebird.each(list, cabang => {
+        if (cabang.npm !== 'ko1') {
+          return request
+            .get(`${cabang.ip}/ewallet/ping`)
+            .then(response => {
+              if (response.pong === 1) {
+                counter++;
+              }
+            });
+        }
+        return;
       })
+        .then(() => {
+          return counter;
+        });
+    })
       .catch((err) => {
         console.log(err);
         return 0;
       });
   },
   length () {
-    return list.length();
+    return list.length;
   }
 };

@@ -9,7 +9,7 @@ module.exports = (app) => {
   app.post('/ewallet/ping', pingController.ping);
   app.get('/ewallet/nasabah', nasabahController.list);
 
-  app.use(checkQuorum.check);
+  // app.use(checkQuorum.check);
 
   app.post('/ewallet/register', nasabahController.create);
   app.post('/ewallet/getSaldo', nasabahController.getSaldo);
