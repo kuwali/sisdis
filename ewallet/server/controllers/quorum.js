@@ -19,19 +19,16 @@ module.exports = {
     return Bluebird.resolve().then(() => {
       counter = 0;
       return Bluebird.each(list, cabang => {
-        if (cabang.npm !== 'ko1') {
-          return request
-            .get(`${cabang.ip}/ewallet/ping`)
-            .then(response => {
-              if (response.pong === 1) {
-                counter++;
-              }
-            })
-            .catch(err => {
-              fs.appendFileSync(path.join(__dirname, '../../error.log'), `-- [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Error: ${err}\n`);
-            });
-        }
-        return;
+        return request
+          .get(`${cabang.ip}/ewallet/ping`)
+          .then(response => {
+            if (response.pong === 1) {
+              counter++;
+            }
+          })
+          .catch(err => {
+            fs.appendFileSync(path.join(__dirname, '../../error.log'), `-- [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Error: ${err}\n`);
+          });
       })
         .then(() => {
           return counter;
