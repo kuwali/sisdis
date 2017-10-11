@@ -64,4 +64,7 @@ typings/
 # Counter file
 src/counter
 
+# Config file
+server/config/config.json
+
 # End of https://www.gitignore.io/api/node
