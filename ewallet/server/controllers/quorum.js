@@ -1,6 +1,5 @@
 'use strict';
 
-const _ = require('lodash');
 const Bluebird = require('bluebird');
 const request = require('superagent').agent();
 
@@ -16,7 +15,8 @@ let counter;
 module.exports = {
   check () {
     return Bluebird
-      .resolve().then(() => {
+      .resolve()
+      .then(() => {
         counter = 0;
         return Bluebird.each(list, cabang => {
           if (cabang.npm !== 'ko1') {
@@ -24,14 +24,14 @@ module.exports = {
               .get(`${cabang.ip}/ewallet/ping`)
               .then(response => {
                 if (response.pong === 1) {
-                  counter++;
+                  return counter++;
                 }
               });
           }
-        });
-      })
-      .then(() => {
-        return counter;
+        })
+          .then(() => {
+            return counter;
+          });
       })
       .catch((err) => {
         console.log(err);
