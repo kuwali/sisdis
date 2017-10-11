@@ -12,18 +12,16 @@ const list = [
   { 'ip': '172.17.0.47', 'npm': 'Irma' }
 ];
 
-let counter;
-
 module.exports = {
   check () {
     return Bluebird.resolve().then(() => {
-      counter = 0;
+      let counter = 0;
       return Bluebird.each(list, cabang => {
         return request
-          .get(`${cabang.ip}/ewallet/ping`)
+          .post(`${cabang.ip}/ewallet/ping`)
           .then(response => {
-            if (response.pong === 1) {
-              counter++;
+            if (response.body.pong === 1) {
+              counter += 1;
             }
           })
           .catch(err => {
@@ -31,6 +29,7 @@ module.exports = {
           });
       })
         .then(() => {
+          fs.appendFileSync(path.join(__dirname, '../../response.log'), `-- [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Success: ${counter}\n`);
           return counter;
         });
     })
