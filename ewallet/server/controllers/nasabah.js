@@ -1,7 +1,9 @@
 'use strict';
 
 const Bluebird = require('bluebird');
+const fs = Bluebird.promisifyAll(require('fs'));
 const Nasabah = require('../models').Nasabah;
+const path = require('path');
 const quorum = require('./quorum');
 
 module.exports = {
@@ -11,7 +13,7 @@ module.exports = {
         return quorum.check();
       })
       .then(counter => {
-        if (counter >= (quorum.length() / 2)) {
+        if (counter > (quorum.length() / 2)) {
           return Nasabah
             .create({
               user_id: req.body.user_id,
@@ -19,20 +21,25 @@ module.exports = {
               registerReturn: req.body.registerReturn
             })
             .then(() => {
+              fs.appendFileSync(path.join(__dirname, '../../response.log'), `${req.headers.host} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Success: {status_register: 1}\n`);
               return res
                 .send({status_register: 1});
             })
-            .catch(() => {
+            .catch(err => {
+              fs.appendFileSync(path.join(__dirname, '../../error.log'), `${req.headers.host} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Error: ${err}\n`);
               return res
                 .send({status_register: -4});
             });
         } else {
+          fs.appendFileSync(path.join(__dirname, '../../error.log'), `${req.headers.host} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Error: -2\n`);
           return res
             .send({status_register: -2});
         }
       })
       .catch(err => {
-        console.log(err);
+        fs.appendFileSync(path.join(__dirname, '../../error.log'), `${req.headers.host} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Error: ${err}\n`);
+        return res
+          .send({status_register: -99});
       });
   },
 
@@ -40,12 +47,14 @@ module.exports = {
     return Nasabah
       .all()
       .then(nasabah => {
+        fs.appendFileSync(path.join(__dirname, '../../response.log'), `${req.headers.host} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Success: ${nasabah}\n`);
         return res
           .send(nasabah);
       })
-      .catch((err) => {
+      .catch(err => {
+        fs.appendFileSync(path.join(__dirname, '../../error.log'), `${req.headers.host} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Error: ${err}\n`);
         return res
-          .send(err);
+          .send({});
       });
   },
 
@@ -55,7 +64,7 @@ module.exports = {
         return quorum.check();
       })
       .then(counter => {
-        if (counter >= quorum.length() / 2) {
+        if (counter > quorum.length() / 2) {
           return Nasabah
             .findOne({
               where: {
@@ -64,24 +73,30 @@ module.exports = {
             })
             .then(nasabah => {
               if (!nasabah) {
-                res
-                  .send({nilai_saldo: -4});
+                fs.appendFileSync(path.join(__dirname, '../../error.log'), `${req.headers.host} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Error: -1\n`);
+                return res
+                  .send({nilai_saldo: -1});
               }
 
-              res
+              fs.appendFileSync(path.join(__dirname, '../../response.log'), `${req.headers.host} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Success: {nilai_saldo: ${nasabah.nilai_saldo}}\n`);
+              return res
                 .send({nilai_saldo: nasabah.nilai_saldo});
             })
-            .catch(() => {
-              res
+            .catch(err => {
+              fs.appendFileSync(path.join(__dirname, '../../error.log'), `${req.headers.host} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Error: -4\n${err}\n`);
+              return res
                 .send({nilai_saldo: -4});
             });
         } else {
-          res
+          fs.appendFileSync(path.join(__dirname, '../../error.log'), `${req.headers.host} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Error: -2\n`);
+          return res
             .send({nilai_saldo: -2});
         }
       })
       .catch(err => {
-        console.log(err);
+        fs.appendFileSync(path.join(__dirname, '../../error.log'), `${req.headers.host} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Error: ${err}\n`);
+        return res
+          .send({nilai_saldo: -99});
       });
   }
 };

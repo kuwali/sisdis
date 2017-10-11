@@ -1,6 +1,8 @@
 'use strict';
 
 const Bluebird = require('bluebird');
+const fs = Bluebird.promisifyAll(require('fs'));
+const path = require('path');
 const request = require('superagent').agent();
 
 const list = [
@@ -24,6 +26,9 @@ module.exports = {
               if (response.pong === 1) {
                 counter++;
               }
+            })
+            .catch(err => {
+              fs.appendFileSync(path.join(__dirname, '../../error.log'), `-- [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Error: ${err}\n`);
             });
         }
         return;
@@ -32,8 +37,8 @@ module.exports = {
           return counter;
         });
     })
-      .catch((err) => {
-        console.log(err);
+      .catch(err => {
+        fs.appendFileSync(path.join(__dirname, '../../error.log'), `-- [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Error: ${err}\n`);
         return 0;
       });
   },
