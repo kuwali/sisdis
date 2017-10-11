@@ -1,0 +1,28 @@
+{
+  "name": "ewallet",
+  "version": "1.0.0",
+  "description": "Tugas e-wallet Sistem Terdistribusi",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./bin/www"
+  },
+  "author": "Kustiawanto Halim",
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "body-parser": "^1.18.2",
+    "cluster": "^0.7.7",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.1",
+    "lodash": "^4.17.4",
+    "morgan": "^1.9.0",
+    "pg": "^6.4.2",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^3.30.4",
+    "superagent": "^3.6.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.1",
+    "eslint": "^4.7.2"
+  }
+}
