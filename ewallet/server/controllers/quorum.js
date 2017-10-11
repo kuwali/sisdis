@@ -26,15 +26,15 @@ module.exports = {
                 if (response.pong === 1) {
                   counter++;
                 }
-              })
-              .catch((err) => {
-                console.log(err);
               });
           }
         });
       })
       .then(() => {
         return counter;
+      })
+      .catch((err) => {
+        console.log(err);
       });
   },
   length () {
