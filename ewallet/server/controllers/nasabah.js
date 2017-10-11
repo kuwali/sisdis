@@ -28,6 +28,9 @@ module.exports = {
           return res
             .send({status_register: -2});
         }
+      })
+      .catch(err => {
+        console.log(err);
       });
   },
 
@@ -72,6 +75,9 @@ module.exports = {
           res
             .send({nilai_saldo: -2});
         }
+      })
+      .catch(err => {
+        console.log(err);
       });
   }
 };
