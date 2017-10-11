@@ -18,7 +18,7 @@ module.exports = {
     return Bluebird
       .resolve().then(() => {
         counter = 0;
-        return _.forEach(list, cabang => {
+        return Bluebird.each(list, cabang => {
           if (cabang.npm !== 'ko1') {
             return request
               .get(`${cabang.ip}/ewallet/ping`)
@@ -35,6 +35,7 @@ module.exports = {
       })
       .catch((err) => {
         console.log(err);
+        return 0;
       });
   },
   length () {
