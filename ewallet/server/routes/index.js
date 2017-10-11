@@ -18,4 +18,8 @@ module.exports = (app) => {
   app.all('/ewallet/getSaldo', errorController.notAllowed);
   app.all('/ewallet/ping', errorController.notAllowed);
   app.all('/ewallet/nasabah', errorController.notAllowed);
+
+  app.all('/*', (req, res) => res.status(404).send({
+    status: -99
+  }));
 };

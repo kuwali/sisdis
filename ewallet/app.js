@@ -13,8 +13,5 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 require('./server/routes')(app);
-app.all('*', (req, res) => res.status(404).send({
-  status: -99
-}));
 
 module.exports = app;

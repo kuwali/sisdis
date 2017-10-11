@@ -26,6 +26,9 @@ module.exports = {
                 if (response.pong === 1) {
                   counter++;
                 }
+              })
+              .catch((err) => {
+                console.log(err);
               });
           }
         });
