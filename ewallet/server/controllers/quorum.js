@@ -24,7 +24,7 @@ module.exports = {
               .get(`${cabang.ip}/ewallet/ping`)
               .then(response => {
                 if (response.pong === 1) {
-                  return counter++;
+                  counter++;
                 }
               });
           }

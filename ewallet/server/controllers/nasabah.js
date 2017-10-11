@@ -8,7 +8,9 @@ module.exports = {
   create (req, res) {
     return Bluebird
       .resolve().then(() => {
-        let counter = quorum.check();
+        return quorum.check();
+      })
+      .then(counter => {
         if (counter >= (quorum.length() / 2)) {
           return Nasabah
             .create({
@@ -50,7 +52,9 @@ module.exports = {
   getSaldo (req, res) {
     return Bluebird
       .resolve().then(() => {
-        let counter = quorum.check();
+        return quorum.check();
+      })
+      .then(counter => {
         if (counter >= quorum.length() / 2) {
           return Nasabah
             .findOne({
