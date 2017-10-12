@@ -17,8 +17,7 @@ module.exports = {
           return Nasabah
             .create({
               user_id: req.body.user_id,
-              nama: req.body.nama,
-              registerReturn: req.body.registerReturn
+              nama: req.body.nama
             })
             .then(() => {
               fs.appendFileSync(path.join(__dirname, '../../response.log'), `${req.headers.host} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Success: {status_register: 1}, counter: ${counter}\n`);

@@ -17,10 +17,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.STRING
       },
-      registerReturn: {
-        allowNull: false,
-        type: Sequelize.INTEGER
-      },
       nilai_saldo: {
         defaultValue: 0,
         type: Sequelize.INTEGER
