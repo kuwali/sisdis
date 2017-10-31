@@ -44,7 +44,7 @@ program
   .option('-i, --ip <ip>', '')
   .option('-u, --user_id <user_id>', '')
   .option('-n, --nilai <nilai>', '')
-  .action()
+  .action(transfer)
 
 program
   .command('gettotalsaldo')
