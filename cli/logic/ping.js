@@ -11,7 +11,7 @@ module.exports.ping = (options) => {
     })
   }
   return request
-    .get('152.118.31.2/list.php')
+    .get('http://152.118.31.2/list.php')
     .then(result => {
       return Bluebird.each(result, item => {
         if (item.npm === options.user_id) {

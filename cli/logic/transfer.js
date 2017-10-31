@@ -13,7 +13,7 @@ module.exports.transfer = (options) => {
       res = JSON.parse(res.text);
       if (res.status_transfer === -1) {
         request
-          .get('127.0.0.1/ewallet/nasabah')
+          .get('http://127.0.0.1/ewallet/nasabah')
           .then(result => {
             Bluebird.each(result, item => {
               if (item.npm === options.user_id) {
