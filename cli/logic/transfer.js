@@ -8,7 +8,7 @@ module.exports.transfer = (options) => {
   if (!options.user_id || !options.nilai) return console.log('Args needed');
   return request
     .post(`${options.ip}/ewallet/transfer`)
-    .send({user_id: options.user_id, nilai: options.nilai})
+    .send({user_id: options.user_id, nilai: Number(options.nilai)})
     .then(res => {
       res = JSON.parse(res.text);
       if (res.status_transfer === -1) {
