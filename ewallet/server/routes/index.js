@@ -14,7 +14,7 @@ module.exports = (app) => {
   app.post('/ewallet/getSaldo', nasabahController.getSaldo);
   app.post('/ewallet/transfer', nasabahController.transfer);
   app.post('/ewallet/getTotalSaldo', nasabahController.getTotalSaldo);
-  app.post('/api/updateSaldo', nasabahController.updateSaldo);
+  app.post('/ewallet/updateSaldo', nasabahController.updateSaldo);
 
   app.all('/ewallet/register', errorController.notAllowed);
   app.all('/ewallet/getSaldo', errorController.notAllowed);
@@ -22,7 +22,7 @@ module.exports = (app) => {
   app.all('/ewallet/nasabah', errorController.notAllowed);
   app.all('/ewallet/transfer', errorController.notAllowed);
   app.all('/ewallet/getTotalSaldo', errorController.notAllowed);
-  app.all('/api/updateSaldo', errorController.notAllowed);
+  app.all('/ewallet/updateSaldo', errorController.notAllowed);
 
   app.all('/*', (req, res) => res.status(404).send({
     status: -99
