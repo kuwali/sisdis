@@ -8,7 +8,7 @@ module.exports.transfer = (options) => {
   if (!options.user_id || !options.nilai) return console.log('Args needed');
   return request
     .post(`${options.ip}/ewallet/transfer`)
-    .send({user_id: options.user_id, nilai: options.nilai})
+    .send(`{"user_id": ${options.user_id}, "nilai": ${options.nilai}}`)
     .then(res => {
       res = JSON.parse(res.text);
       if (res.status_transfer === -1) {
@@ -20,7 +20,7 @@ module.exports.transfer = (options) => {
               if (item.npm === options.user_id) {
                 request
                   .post(`${item.ip}/ewallet/register`)
-                  .send({user_id: item.user_id, name: item.name});
+                  .send(`{"user_id": ${options.user_id}, "name": ${options.name}}`)
               }
             })
           })

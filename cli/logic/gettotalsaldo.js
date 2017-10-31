@@ -8,7 +8,7 @@ module.exports.getsaldo = (options) => {
   if (!options.user_id) return console.log('Args needed');
   return request
     .post(`${options.ip}/ewallet/getTotalSaldo`)
-    .send({user_id: options.user_id})
+    .send(`{"user_id": ${options.user_id}}`)
     .then(res => {
       res = JSON.parse(res.text);
       if (res.nilai_saldo === -1) {
@@ -20,7 +20,7 @@ module.exports.getsaldo = (options) => {
               if (item.npm === options.user_id) {
                 request
                   .post(`${item.ip}/ewallet/register`)
-                  .send({user_id: item.user_id, name: item.name});
+                  .send(`{"user_id": ${options.user_id}, "name": ${options.name}}`)
               }
             })
           })
