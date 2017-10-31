@@ -13,6 +13,7 @@ module.exports.ping = (options) => {
   return request
     .get('http://152.118.31.2/list.php')
     .then(result => {
+      result = JSON.parse(result.text);
       return Bluebird.each(result, item => {
         if (item.npm === options.user_id) {
           return request.post(`${item.ip}/ewallet/ping`)

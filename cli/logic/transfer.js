@@ -15,6 +15,7 @@ module.exports.transfer = (options) => {
         request
           .get('http://127.0.0.1/ewallet/nasabah')
           .then(result => {
+            result = JSON.parse(result.text);
             Bluebird.each(result, item => {
               if (item.npm === options.user_id) {
                 request
