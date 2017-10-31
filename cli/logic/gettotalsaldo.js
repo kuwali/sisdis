@@ -3,7 +3,7 @@
 const request = require('superagent');
 const Bluebird = require('bluebird');
 
-module.exports.getsaldo = (options) => {
+module.exports.gettotalsaldo = (options) => {
   if (!options.ip) return console.log('Need ip :(');
   if (!options.user_id) return console.log('Args needed');
   return request
