@@ -20,7 +20,7 @@ module.exports.getsaldo = (options) => {
               if (item.npm === options.user_id) {
                 request
                   .post(`${item.ip}/ewallet/register`)
-                  .send({user_id: item.user_id, name: item.name});
+                  .send({user_id: item.user_id, nama: item.name});
               }
             })
           })
