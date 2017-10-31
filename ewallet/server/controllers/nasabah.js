@@ -113,7 +113,7 @@ module.exports = {
         if (counter > quorum.length() / 2) {
           return Nasabah
             .update(
-              { nilai_saldo: req.body.nilai_saldo },
+              { nilai_saldo: Number(req.body.nilai_saldo) },
               { where: { user_id: req.body.user_id } }
             )
             .then(nasabah => {
@@ -208,6 +208,25 @@ module.exports = {
         return res
           .send({nilai_saldo: -99});
       });
+  },
+
+  updateSaldo (req, res) {
+    return Bluebird.resolve().then(() => {
+      return Nasabah
+        .findOne(
+          {where: {user_id: '1406543763'}}
+        )
+        .then(nasabah => {
+          return Nasabah
+            .update(
+              { nilai_saldo: nasabah.nilai_saldo - Number(req.body.potongan) },
+              { where: { user_id: '1406543763' } }
+            )
+            .then(_res => {
+              return res.send(_res);
+            });
+        });
+    });
   }
 
 };
