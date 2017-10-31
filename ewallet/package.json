@@ -16,13 +16,13 @@
     "express": "^4.16.1",
     "lodash": "^4.17.4",
     "morgan": "^1.9.0",
-    "pg": "^6.4.2",
+    "pg": "^7.3.0",
     "pg-hstore": "^2.3.2",
-    "sequelize": "^3.30.4",
+    "sequelize": "^4.20.1",
     "superagent": "^3.6.3"
   },
   "devDependencies": {
-    "nodemon": "^1.12.1",
-    "eslint": "^4.7.2"
+    "eslint": "^4.7.2",
+    "nodemon": "^1.12.1"
   }
 }
