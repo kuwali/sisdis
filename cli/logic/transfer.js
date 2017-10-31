@@ -19,7 +19,7 @@ module.exports.transfer = (options) => {
             Bluebird.each(result, item => {
               if (item.npm === options.user_id) {
                 request
-                  .post(`${item.ip}/ewallet/register`)
+                  .post(`${options.ip}/ewallet/register`)
                   .send({user_id: item.user_id, nama: item.name});
               }
             })

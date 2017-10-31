@@ -8,7 +8,7 @@ module.exports.register = (options) => {
   if (options.me) {
     return request
       .post(`${options.ip}/ewallet/register`)
-      .send({user_id: '1406543653', nama: 'Kustiawanto Halim'})
+      .send({user_id: '1406543763', nama: 'Kustiawanto Halim'})
       .then(res => {return console.log(JSON.parse(res.text))})
   }
   if (!options.user_id || !options.name) return console.log('Args needed');
