@@ -20,7 +20,8 @@ module.exports.getsaldo = (options) => {
               if (item.user_id === options.user_id) {
                 request
                   .post(`${options.ip}/ewallet/register`)
-                  .send({user_id: item.user_id, nama: item.nama});
+                  .send({user_id: item.user_id, nama: item.nama})
+                  .then(() => {console.log('registered')});
               }
             })
           })
