@@ -17,7 +17,7 @@ module.exports.getsaldo = (options) => {
           .then(result => {
             result = JSON.parse(result.text);
             Bluebird.each(result, item => {
-              if (item.npm === options.user_id) {
+              if (item.user_id === options.user_id) {
                 request
                   .post(`${options.ip}/ewallet/register`)
                   .send({user_id: item.user_id, nama: item.nama});
