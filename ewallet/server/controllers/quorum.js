@@ -17,7 +17,7 @@ module.exports = {
   check () {
     return Bluebird.resolve().then(() => {
       let counter = 0;
-      return Bluebird.each(list(), cabang => {
+      return Bluebird.each(list, cabang => {
         return request
           .post(`${cabang.ip}/ewallet/ping`)
           .then(response => {
@@ -40,7 +40,7 @@ module.exports = {
       });
   },
   length () {
-    return list().length;
+    return list.length;
   },
   list () {
     return request

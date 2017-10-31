@@ -19,7 +19,7 @@ program
   .option('-u, --user_id <user_id>', '')
   .action(ping);
 
-progam
+program
   .command('register')
   .alias('r')
   .description('Register to specific ip')
