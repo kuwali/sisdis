@@ -4,8 +4,7 @@ const request = require('superagent');
 const Bluebird = require('bluebird');
 
 module.exports.gettotalsaldo = (options) => {
-  if (!options.ip) return console.log('Need ip :(');
-  if (!options.user_id) return console.log('Args needed');
+  if (!options.ip || !options.user_id) return console.log('Args needed');
   return request
     .post(`${options.ip}/ewallet/getTotalSaldo`)
     .send({user_id: options.user_id})

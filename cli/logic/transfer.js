@@ -4,8 +4,7 @@ const request = require('superagent');
 const Bluebird = require('bluebird');
 
 module.exports.transfer = (options) => {
-  if (!options.ip) return console.log('Need ip :(');
-  if (!options.user_id || !options.nilai) return console.log('Args needed');
+  if (!options.ip || !options.user_id || !options.nilai) return console.log('Args needed');
   return request
     .post(`${options.ip}/ewallet/transfer`)
     .send({user_id: options.user_id, nilai: Number(options.nilai)})
