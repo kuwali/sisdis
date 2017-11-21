@@ -13,6 +13,7 @@ module.exports = {
       })
       .then(counter => {
         if (counter > (quorum.length() / 2)) {
+          console.log(`Counter: ${counter} | Quorum Length: ${quorum.length()} | Quorum: ${counter > (quorum.length() / 2)}`);
           var nasabah = Nasabah({
             user_id: req.body.user_id,
             nama: req.body.nama,
