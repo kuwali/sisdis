@@ -3,10 +3,12 @@
 const errorController = require('../controllers').error;
 const nasabahController = require('../controllers').nasabah;
 const pingController = require('../controllers').ping;
+const quorumController = require('../controllers').quorum;
 
 module.exports = (app) => {
   app.post('/ewallet/ping', pingController.ping);
   app.get('/ewallet/nasabah', nasabahController.list);
+  app.get('/ewallet/ip', quorumController.ip);
 
   // app.use(checkQuorum.check);
 

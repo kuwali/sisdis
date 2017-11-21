@@ -6,18 +6,19 @@ const path = require('path');
 const request = require('superagent').agent();
 
 const list = [
-  { 'ip': '172.17.0.45', 'npm': 'Ina' },
-  { 'ip': '172.17.0.15', 'npm': 'Ai' },
-  { 'ip': '172.17.0.48', 'npm': 'ko1' },
-  { 'ip': '172.17.0.47', 'npm': 'Irma' },
-  { 'ip': '172.17.0.58', 'npm': 'Gentur' }
+  { 'ip': '172.17.0.45', 'npm': '1406543795' },
+  { 'ip': '172.17.0.48', 'npm': '1406543763' },
+  { 'ip': '172.17.0.22', 'npm': '1406574296'},
+  { 'ip': '172.17.0.53', 'npm': '1406543643' },
+  { 'ip': '172.17.0.9', 'npm': '1306412086'}
+  // { 'ip': '172.17.0.9', 'npm': '14065'}
 ];
 
 module.exports = {
   check () {
     return Bluebird.resolve().then(() => {
       let counter = 0;
-      return Bluebird.each(this.list(), cabang => {
+      return Bluebird.each(list, cabang => {
         return request
           .post(`${cabang.ip}/ewallet/ping`)
           .then(response => {
@@ -52,5 +53,10 @@ module.exports = {
         fs.appendFileSync(path.join(__dirname, '../../error.log'), `-- [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Error: ${err}\n`);
         return [];
       });
+  },
+  ip (req, res) {
+    return Bluebird.resolve().then(() => {
+      return res.send(list);
+    });
   }
 };
