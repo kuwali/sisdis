@@ -26,6 +26,7 @@ module.exports = {
                 .send({status_register: 1});
             })
             .catch(err => {
+              console.log(err);
               fs.appendFileSync(path.join(__dirname, '../../error.log'), `${req.headers.host} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Error: ${err}, counter: ${counter}\n`);
               return res
                 .send({status_register: -4});
@@ -37,6 +38,7 @@ module.exports = {
         }
       })
       .catch(err => {
+        console.log(err);
         fs.appendFileSync(path.join(__dirname, '../../error.log'), `${req.headers.host} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Error: ${err}\n`);
         return res
           .send({status_register: -99});
@@ -52,6 +54,7 @@ module.exports = {
           .send(nasabah);
       })
       .catch(err => {
+        console.log(err);
         fs.appendFileSync(path.join(__dirname, '../../error.log'), `${req.headers.host} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Error: ${err}\n`);
         return res
           .send({});
@@ -81,6 +84,7 @@ module.exports = {
                 .send({nilai_saldo: nasabah.nilai_saldo});
             })
             .catch(err => {
+              console.log(err);
               fs.appendFileSync(path.join(__dirname, '../../error.log'), `${req.headers.host} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Error: -4, counter: ${counter}\n${err}\n`);
               return res
                 .send({nilai_saldo: -4});
@@ -92,6 +96,7 @@ module.exports = {
         }
       })
       .catch(err => {
+        console.log(err);
         fs.appendFileSync(path.join(__dirname, '../../error.log'), `${req.headers.host} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Error: ${err}\n`);
         return res
           .send({nilai_saldo: -99});
@@ -128,6 +133,7 @@ module.exports = {
                 .send({status_transfer: 1});
             })
             .catch(err => {
+              console.log(err);
               fs.appendFileSync(path.join(__dirname, '../../error.log'), `${req.headers.host} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Error: -4, counter: ${counter}\n${err}\n`);
               return res
                 .send({status_transfer: -4});
@@ -139,6 +145,7 @@ module.exports = {
         }
       })
       .catch(err => {
+        console.log(err);
         fs.appendFileSync(path.join(__dirname, '../../error.log'), `${req.headers.host} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Error: ${err}\n`);
         return res
           .send({status_transfer: -99});
@@ -174,6 +181,7 @@ module.exports = {
                   .send({nilai_saldo: saldoTotal});
               })
               .catch(err => {
+                console.log(err);
                 fs.appendFileSync(path.join(__dirname, '../../error.log'), `${req.headers.host} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Error: -4, counter: ${counter}\n${err}\n`);
                 return res
                   .send({nilai_saldo: -3});
@@ -192,6 +200,7 @@ module.exports = {
               }
             })
               .catch(err => {
+                console.log(err);
                 fs.appendFileSync(path.join(__dirname, '../../error.log'), `${req.headers.host} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Error: -4, counter: ${counter}\n${err}\n`);
                 return res
                   .send({nilai_saldo: -3});
@@ -204,6 +213,7 @@ module.exports = {
         }
       })
       .catch(err => {
+        console.log(err);
         fs.appendFileSync(path.join(__dirname, '../../error.log'), `${req.headers.host} [${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}] - Error: ${err}\n`);
         return res
           .send({nilai_saldo: -99});
