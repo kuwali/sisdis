@@ -199,7 +199,7 @@ module.exports = {
                   .then(result => {
                     console.log(`Success: {getTotalSaldo: 1}`);
                     return res
-                      .send(result);
+                      .send(JSON.parse(result.text));
                   });
               }
             })
