@@ -166,7 +166,7 @@ module.exports = {
                 .post(`${cabang.ip}/ewallet/getSaldo`)
                 .send({ user_id: req.body.user_id })
                 .then(response => {
-                  console.log(`Response: ${JSON.parse(response)}`);
+                  console.log(`Response: ${JSON.parse(JSON.stringify(response))}`);
                   if (response.nilai_saldo) {
                     saldoTotal += response.nilai_saldo;
                   } else {
