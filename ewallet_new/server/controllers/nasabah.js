@@ -111,26 +111,32 @@ module.exports = {
       .then(counter => {
         if (counter > quorum.length() / 2) {
           return Nasabah
-            .findOneAndUpdate({ user_id: req.body.user_id },
-              { nilai_saldo: Number(req.body.nilai_saldo) },
-              (err, data) => {
-                if (err) {
-                  console.log(`Error: -4, counter: ${counter}${err}`);
-                  return res
-                    .send({status_transfer: -4});
-                }
-
-                if (!nasabah) {
-                  console.log(`Error: -1, counter: ${counter}`);
-                  return res
-                    .send({status_transfer: -1});
-                }
-
-                console.log(`Success: {transfer: 1}, counter: ${counter}`);
+            .findOne(
+              {where: {user_id: '1406543763'}}
+            )
+            .then(nasabah => {
+              if (!nasabah) {
+                console.log(`Error: -1, counter: ${counter}`);
                 return res
-                  .send({status_transfer: 1});
+                  .send({status_transfer: -1});
               }
-            );
+
+              return Nasabah
+                .findOneAndUpdate({ user_id: req.body.user_id },
+                  { nilai_saldo: nasabah.nilai_saldo + Number(req.body.nilai) },
+                  (err, data) => {
+                    if (err) {
+                      console.log(`Error: -4, counter: ${counter}${err}`);
+                      return res
+                        .send({status_transfer: -4});
+                    }
+
+                    console.log(`Success: {transfer: 1}, counter: ${counter}`);
+                    return res
+                      .send({status_transfer: 1});
+                  }
+                );
+            });
         } else {
           console.log(`Error: -2, counter: ${counter}`);
           return res
