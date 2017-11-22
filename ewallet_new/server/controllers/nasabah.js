@@ -112,7 +112,7 @@ module.exports = {
         if (counter > quorum.length() / 2) {
           return Nasabah
             .findOne(
-              {where: {user_id: '1406543763'}}
+              {user_id: req.body.user_id}
             )
             .then(nasabah => {
               if (!nasabah) {
@@ -220,7 +220,7 @@ module.exports = {
     return Bluebird.resolve().then(() => {
       return Nasabah
         .findOne(
-          {where: {user_id: '1406543763'}}
+          {user_id: '1406543763'}
         )
         .then(nasabah => {
           return Nasabah
