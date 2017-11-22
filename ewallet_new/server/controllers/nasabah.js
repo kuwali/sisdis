@@ -186,7 +186,7 @@ module.exports = {
                   .send({nilai_saldo: saldoTotal});
               })
               .catch(err => {
-                console.log(`Error: -4, counter: ${counter}${err}`);
+                console.log(`Error: -3, counter: ${counter}${err}`);
                 return res
                   .send({nilai_saldo: -3});
               });
@@ -197,14 +197,14 @@ module.exports = {
                   .post(`${cabang.ip}/ewallet/getTotalSaldo`)
                   .send({ user_id: req.body.user_id })
                   .then(result => {
-                    console.log(`Success: {transfer: 1}, counter: ${counter}`);
+                    console.log(`Success: {getTotalSaldo: 1}`);
                     return res
                       .send(result);
                   });
               }
             })
               .catch(err => {
-                console.log(`Error: -4, counter: ${counter}${err}`);
+                console.log(`Error: -3, counter: ${counter}${err}`);
                 return res
                   .send({nilai_saldo: -3});
               });
