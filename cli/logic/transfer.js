@@ -20,10 +20,15 @@ module.exports.transfer = (options) => {
                 request
                   .post(`${options.ip}/ewallet/register`)
                   .send({user_id: item.user_id, nama: item.nama})
-                  .then(() => {console.log('registered')});
+                  .then((res) => {console.log(JSON.parse(res.text))});
               }
             })
           })
+      } else if (res.status_transfer === 1) {
+        return request
+          .post(`http://127.0.0.1/ewallet/updateSaldo`)
+          .send({potongan: Number(options.nilai)})
+          .then((res) => {console.log(JSON.parse(res.text))});
       }
       return console.log(res);
     })

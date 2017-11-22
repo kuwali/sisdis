@@ -160,6 +160,7 @@ module.exports = {
           let list = quorum.list();
           if (req.body.user_id === '1406543763') {
             let saldoTotal = 0;
+            let error = false;
             return Bluebird.each(list, cabang => {
               return request
                 .post(`${cabang.ip}/ewallet/getSaldo`)
@@ -169,13 +170,18 @@ module.exports = {
                   if (response.nilai_saldo) {
                     saldoTotal += response.nilai_saldo;
                   } else {
-                    console.log(`Error: -4, counter: ${counter}`);
-                    return res
-                      .send({nilai_saldo: -3});
+                    error = true;
                   }
                 });
             })
               .then(() => {
+                if (error) {
+                  console.log(`Error: -3`);
+                  return res
+                    .send({nilai_saldo: -3});
+                }
+
+                console.log(`Success: ${saldoTotal}`);
                 return res
                   .send({nilai_saldo: saldoTotal});
               })
