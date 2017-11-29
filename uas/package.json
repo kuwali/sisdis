@@ -1,0 +1,15 @@
+{
+  "name": "uas",
+  "version": "1.0.0",
+  "description": "Tugas uas Sistem Terdistribusi",
+  "main": "index.js",
+  "scripts": {
+    "start": "echo 'Run Manually'"
+  },
+  "author": "Kustiawanto Halim",
+  "license": "MIT",
+  "dependencies": {
+    "amqplib": "^0.5.2"
+  },
+  "devDependencies": {}
+}
