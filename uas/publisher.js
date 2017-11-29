@@ -8,7 +8,7 @@ const amqp = require('amqplib/callback_api');
         var msg = {
           action: 'ping',
           npm: '1406543763',
-          ts: new Date()
+          ts: new Date().toLocaleString('en-US', { hour12: false })
         };
   
         ch.assertExchange(ex, 'fanout', {durable: false});
