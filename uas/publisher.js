@@ -1,7 +1,7 @@
 const amqp = require('amqplib/callback_api');
 
-while (true) {
-  setInterval(function() {
+(function loop() {
+  setTimeout(function() {
     amqp.connect('amqp://sisdis:sisdis@172.17.0.3:5672', function(err, conn) {
       conn.createChannel(function(err, ch) {
         var ex = 'EX_PING';
@@ -18,5 +18,6 @@ while (true) {
   
       setTimeout(function() { conn.close() }, 500);
     });
+    loop();
   }, 5000);
-}
+})();
