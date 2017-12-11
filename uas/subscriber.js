@@ -1,4 +1,5 @@
 var amqp = require('amqplib/callback_api');
+var store = require('./model/quorum');
 
 amqp.connect('amqp://sisdis:sisdis@172.17.0.3:5672', function(err, conn) {
   conn.createChannel(function(err, ch) {
@@ -12,6 +13,7 @@ amqp.connect('amqp://sisdis:sisdis@172.17.0.3:5672', function(err, conn) {
 
       ch.consume(q.queue, function(msg) {
         console.log(" [x] %s", msg.content.toString());
+        store.save(JSON.parse(msg.content));
       }, {noAck: true});
     });
   });

@@ -9,7 +9,10 @@
   "author": "Kustiawanto Halim",
   "license": "MIT",
   "dependencies": {
-    "amqplib": "^0.5.2"
+    "amqplib": "^0.5.2",
+    "bluebird": "^3.5.1",
+    "lodash": "^4.17.4",
+    "redis": "^2.8.0"
   },
   "devDependencies": {}
 }
