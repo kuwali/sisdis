@@ -5,7 +5,7 @@ amqp.connect('amqp://sisdis:sisdis@172.17.0.3:5672', function(err, conn) {
   conn.createChannel(function(err, ch) {
     var ex = 'EX_GET_SALDO';
 
-    ch.assertExchange(ex, 'direct', {durable: false});
+    ch.assertExchange(ex, 'direct');
 
     ch.assertQueue('', {exclusive: true}, function(err, q) {
       console.log(" [*] Waiting for getsaldo in %s. To exit press CTRL+C", q.queue);
