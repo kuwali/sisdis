@@ -8,12 +8,30 @@ amqp.connect('amqp://sisdis:sisdis@172.17.0.3:5672', function(err, conn) {
     ch.assertExchange(ex, 'fanout', {durable: false});
 
     ch.assertQueue('', {exclusive: true}, function(err, q) {
-      console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", q.queue);
+      console.log(" [*] Waiting for ping in %s. To exit press CTRL+C", q.queue);
       ch.bindQueue(q.queue, ex, '');
 
       ch.consume(q.queue, function(msg) {
-        console.log(" [x] %s", msg.content.toString());
+        console.log(" [P] %s", msg.content.toString());
         store.save(JSON.parse(msg.content));
+      }, {noAck: true});
+    });
+  });
+});
+
+amqp.connect('amqp://sisdis:sisdis@172.17.0.3:5672', function(err, conn) {
+  conn.createChannel(function(err, ch) {
+    var ex = 'EX_GET_SALDO';
+
+    ch.assertExchange(ex, 'direct', {durable: false});
+
+    ch.assertQueue('', {exclusive: true}, function(err, q) {
+      console.log(" [*] Waiting for getsaldo in %s. To exit press CTRL+C", q.queue);
+      ch.bindQueue(q.queue, ex, 'RESP_1406543763');
+
+      ch.consume(q.queue, function(msg) {
+        console.log(" [S] %s", msg.content.toString());
+        // store.save(JSON.parse(msg.content));
       }, {noAck: true});
     });
   });

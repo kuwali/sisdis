@@ -49,3 +49,9 @@ exports.remove = key => {
   return store
     .delAsync(key);
 };
+
+exports.count = () => {
+  return store
+    .getAsync("*")
+    .then(JSON.parse);
+}
