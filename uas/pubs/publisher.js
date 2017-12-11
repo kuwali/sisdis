@@ -32,10 +32,12 @@ amqp.connect('amqp://sisdis:sisdis@172.17.0.3:5672', function(err, conn) {
     };
 
     ch.assertExchange(ex, 'fanout', {durable: false});
-
-    setTimeout(function() {
-      ch.publish(ex, '', new Buffer(JSON.stringify(msg)));
-      console.log(" [x] Sent %s", JSON.stringify(msg));
-    }, 5000);
+    
+    while(1) {
+      setTimeout(function() {
+        ch.publish(ex, '', new Buffer(JSON.stringify(msg)));
+        console.log(" [x] Sent %s", JSON.stringify(msg));
+      }, 5000);
+    };
   });
 });
