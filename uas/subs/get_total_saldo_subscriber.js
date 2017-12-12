@@ -49,7 +49,7 @@ function getTotalSaldoRunner(content, ch) {
         ]
         if (content.user_id === '1406543763') {
           return Bluebird.each(list, cabang => {
-            getSaldo(cabang);
+            getSaldo(cabang, '1406543763');
           })
             .then(() => {
               if (error) {
