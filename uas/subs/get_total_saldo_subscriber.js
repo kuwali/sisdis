@@ -43,9 +43,11 @@ function getTotalSaldoRunner(content, ch) {
   return quorum.count()
     .then(counter => {
       if (counter.length > 5) {
-        let list = quorum.list();
+        let list = [
+          '1406543662', '1406543763'
+        ]
         if (content.user_id === '1406543763') {
-          return Bluebird.each(counter, cabang => {
+          return Bluebird.each(list, cabang => {
             getSaldo(cabang);
           })
             .then(() => {
