@@ -31,7 +31,7 @@ amqp.connect('amqp://sisdis:sisdis@172.17.0.3:5672', function (err, conn) {
       ch.consume(q.queue, function (msg) {
         console.log(" [A] < %s", msg.content.toString());
         if (Number(msg.content.nilai_saldo) > -1) {
-          saldo.update(msg.content.nilai_saldo);
+          // saldo.update(msg.content.nilai_saldo);
         } else {
           error = true;
         }
