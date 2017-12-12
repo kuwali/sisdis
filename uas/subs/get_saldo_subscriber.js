@@ -1,10 +1,10 @@
 const amqp = require('amqplib/callback_api');
 const store = require('../model/quorum');
 const Nasabah = require('../model/nasabah');
+const ex = 'EX_GET_SALDO';
 
 amqp.connect('amqp://sisdis:sisdis@172.17.0.3:5672', function(err, conn) {
   conn.createChannel(function(err, ch) {
-    const ex = 'EX_GET_SALDO';
 
     ch.assertExchange(ex, 'direct');
 
@@ -14,18 +14,13 @@ amqp.connect('amqp://sisdis:sisdis@172.17.0.3:5672', function(err, conn) {
 
       ch.consume(q.queue, function(msg) {
         console.log(" [S] %s", msg.content.toString());
-        return getSaldo(JSON.parse(msg.content))
-          .then(result => {
-            console.log(result.dest);
-            console.log(result.msg);
-            ch.publish(ex, result.dest, new Buffer(JSON.stringify(result.msg)));
-          })
+        getSaldo(JSON.parse(msg.content), ch);
       }, {noAck: true});
     });
   });
 });
 
-function getSaldo(content) {
+function getSaldo(content, ch) {
   return store.count()
     .then(counter => {
       if (counter.length > 5) {
@@ -33,7 +28,7 @@ function getSaldo(content) {
           .findOne({ 'user_id': content.user_id }, (err, nasabah) => {
             if (err) {
               console.log(`Error: -4, counter: ${counter}${err}`);
-              return {
+              var result = {
                 dest: `RESP_${content.sender_id}`, 
                 msg: {
                   action: 'get_saldo',
@@ -42,11 +37,12 @@ function getSaldo(content) {
                   ts: new Date().toLocaleString('en-US', { hour12: false })
                 }
               };
+              ch.publish(ex, result.dest, new Buffer(JSON.stringify(result.msg)));
             }
 
             if (!nasabah) {
               console.log(`Error: -1, counter: ${counter}`);
-              return {
+              var result = {
                 dest: content.sender_id, 
                 msg: {
                   action: 'get_saldo',
@@ -55,10 +51,11 @@ function getSaldo(content) {
                   ts: new Date().toLocaleString('en-US', { hour12: false })
                 }
               };
+              ch.publish(ex, result.dest, new Buffer(JSON.stringify(result.msg)));
             }
 
             console.log(`Success: {nilai_saldo: ${nasabah.nilai_saldo}}, counter: ${counter}`);
-            return {
+            var result = {
               dest: content.sender_id, 
               msg: {
                 action: 'get_saldo',
@@ -67,10 +64,11 @@ function getSaldo(content) {
                 ts: new Date().toLocaleString('en-US', { hour12: false })
               }
             };
+            ch.publish(ex, result.dest, new Buffer(JSON.stringify(result.msg)));
           });
       } else {
         console.log(`Error: -2, counter: ${counter}`);
-        return {
+        var result = {
           dest: content.sender_id, 
           msg: {
             action: 'get_saldo',
@@ -79,11 +77,12 @@ function getSaldo(content) {
             ts: new Date().toLocaleString('en-US', { hour12: false })
           }
         };
+        ch.publish(ex, result.dest, new Buffer(JSON.stringify(result.msg)));
       }
     })
     .catch(err => {
       console.log(`Error: ${err}`);
-      return {
+      var result = {
         dest: content.sender_id, 
         msg: {
           action: 'get_saldo',
@@ -92,5 +91,6 @@ function getSaldo(content) {
           ts: new Date().toLocaleString('en-US', { hour12: false })
         }
       };
+      ch.publish(ex, result.dest, new Buffer(JSON.stringify(result.msg)));
     });
 }
