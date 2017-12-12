@@ -52,6 +52,5 @@ exports.remove = key => {
 
 exports.count = () => {
   return store
-    .getAsync("*")
-    .then(JSON.parse);
+    .keys();
 }
