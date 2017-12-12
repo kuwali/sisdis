@@ -1,0 +1,13 @@
+{
+  "name": "ewallet-cli",
+  "version": "1.0.0",
+  "description": "Tugas e-wallet Sistem Terdistribusi",
+  "author": "Kustiawanto Halim",
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "commander": "^2.11.0",
+    "inquirer": "^3.3.0",
+    "superagent": "^3.8.0"
+  }
+}

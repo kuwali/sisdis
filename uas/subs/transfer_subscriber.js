@@ -48,7 +48,7 @@ function transfer(content, ch) {
                 msg: {
                   action: 'transfer',
                   type: 'response',
-                  nilai_saldo: { status_transfer: -1 },
+                  status_transfer: -1,
                   ts: new Date().toLocaleString('en-US', { hour12: false })
                 }
               };
@@ -67,7 +67,7 @@ function transfer(content, ch) {
                     msg: {
                       action: 'transfer',
                       type: 'response',
-                      nilai_saldo: { status_transfer: -4 },
+                      status_transfer: -4,
                       ts: new Date().toLocaleString('en-US', { hour12: false })
                     }
                   };
@@ -81,7 +81,7 @@ function transfer(content, ch) {
                   msg: {
                     action: 'transfer',
                     type: 'response',
-                    nilai_saldo: { status_transfer: 1 },
+                    status_transfer: 1,
                     ts: new Date().toLocaleString('en-US', { hour12: false })
                   }
                 };
@@ -98,7 +98,7 @@ function transfer(content, ch) {
           msg: {
             action: 'transfer',
             type: 'response',
-            nilai_saldo: { status_transfer: -2 },
+            status_transfer: -2,
             ts: new Date().toLocaleString('en-US', { hour12: false })
           }
         };
@@ -113,7 +113,7 @@ function transfer(content, ch) {
         msg: {
           action: 'transfer',
           type: 'response',
-          nilai_saldo: { status_transfer: -99 },
+          status_transfer: -99,
           ts: new Date().toLocaleString('en-US', { hour12: false })
         }
       };

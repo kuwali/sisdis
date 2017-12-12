@@ -48,7 +48,7 @@ function register(content, ch) {
               msg: {
                 action: 'register',
                 type: 'response',
-                nilai_saldo: { status_register: -4 },
+                status_register: -4,
                 ts: new Date().toLocaleString('en-US', { hour12: false })
               }
             };
@@ -62,7 +62,7 @@ function register(content, ch) {
             msg: {
               action: 'register',
               type: 'response',
-              nilai_saldo: { status_register: 1 },
+              status_register: 1,
               ts: new Date().toLocaleString('en-US', { hour12: false })
             }
           };
@@ -76,7 +76,7 @@ function register(content, ch) {
           msg: {
             action: 'register',
             type: 'response',
-            nilai_saldo: { status_register: -2 },
+            status_register: -2,
             ts: new Date().toLocaleString('en-US', { hour12: false })
           }
         };
@@ -91,7 +91,7 @@ function register(content, ch) {
         msg: {
           action: 'register',
           type: 'response',
-          nilai_saldo: { status_register: -99 },
+          status_register: -99,
           ts: new Date().toLocaleString('en-US', { hour12: false })
         }
       };

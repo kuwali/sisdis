@@ -56,7 +56,7 @@ function getTotalSaldo(content, ch) {
                   msg: {
                     action: 'get_total_saldo',
                     type: 'response',
-                    nilai_saldo: { nilai_saldo: -3 },
+                    nilai_saldo: -3,
                     ts: new Date().toLocaleString('en-US', { hour12: false })
                   }
                 };
@@ -71,7 +71,7 @@ function getTotalSaldo(content, ch) {
                   msg: {
                     action: 'get_total_saldo',
                     type: 'response',
-                    nilai_saldo: { nilai_saldo: saldoTotal },
+                    nilai_saldo: saldoTotal,
                     ts: new Date().toLocaleString('en-US', { hour12: false })
                   }
                 };
@@ -86,7 +86,7 @@ function getTotalSaldo(content, ch) {
                 msg: {
                   action: 'get_total_saldo',
                   type: 'response',
-                  nilai_saldo: { nilai_saldo: -3 },
+                  nilai_saldo: -3,
                   ts: new Date().toLocaleString('en-US', { hour12: false })
                 }
               };
@@ -103,7 +103,7 @@ function getTotalSaldo(content, ch) {
           msg: {
             action: 'get_total_saldo',
             type: 'response',
-            nilai_saldo: { nilai_saldo: -2 },
+            nilai_saldo: -2,
             ts: new Date().toLocaleString('en-US', { hour12: false })
           }
         };
@@ -118,7 +118,7 @@ function getTotalSaldo(content, ch) {
         msg: {
           action: 'get_total_saldo',
           type: 'response',
-          nilai_saldo: { nilai_saldo: -99 },
+          nilai_saldo: -99,
           ts: new Date().toLocaleString('en-US', { hour12: false })
         }
       };
