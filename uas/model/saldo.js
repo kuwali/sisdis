@@ -29,8 +29,7 @@ exports.save = saldo => {
  */
 exports.fetch = () => {
   return store
-   .getAsync('total_saldo')
-   .then(JSON.parse);
+   .getAsync('total_saldo');
 };
 
 /**
@@ -42,7 +41,7 @@ exports.fetch = () => {
  */
 exports.remove = () => {
   return store
-    .setAsync('total_saldo', '0');
+    .setAsync('total_saldo', 0);
 };
 
 
