@@ -14,7 +14,7 @@ amqp.connect('amqp://sisdis:sisdis@172.17.0.3:5672', function(err, conn) {
 
       ch.consume(q.queue, function(msg) {
         console.log(" [S] %s", msg.content.toString());
-        getSaldo(JSON.parse(msg.content))
+        return getSaldo(JSON.parse(msg.content))
           .then(result => {
             console.log(result.dest);
             console.log(result.msg);
