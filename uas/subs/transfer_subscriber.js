@@ -33,10 +33,18 @@ function transfer(content, ch) {
   return store.count()
     .then(counter => {
       if (counter.length > 5) {
-        if (Number(req.body.nilai) < 0 || Number(req.body.nilai) > 1000000) {
-          console.log(`Error: -5`);
-          return res
-            .send({status_transfer: -5});
+        if (Number(content.nilai) < 0 || Number(content.nilai) > 1000000) {
+          var result = {
+            dest: `RESP_${content.sender_id}`,
+            msg: {
+              action: 'transfer',
+              type: 'response',
+              status_transfer: -5,
+              ts: new Date().toLocaleString('en-US', { hour12: false })
+            }
+          };
+          console.log(" [T] > %s", JSON.stringify(result));
+          return ch.publish(ex, result.dest, new Buffer(JSON.stringify(result.msg)));
         } else {
           return Nasabah
           .findOne({ user_id: content.user_id })
