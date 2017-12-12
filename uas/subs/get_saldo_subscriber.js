@@ -46,14 +46,14 @@ function getSaldo(content, ch) {
                   ts: new Date().toLocaleString('en-US', { hour12: false })
                 }
               };
-              console.log(" [S] > %s", JSON.stringify(msg));
+              console.log(" [S] > %s", JSON.stringify(result));
               return ch.publish(ex, result.dest, new Buffer(JSON.stringify(result.msg)));
             }
 
             if (!nasabah) {
               // console.log(`Error: -1, counter: ${counter}`);
               var result = {
-                dest: content.sender_id, 
+                dest: `RESP_${content.sender_id}`, 
                 msg: {
                   action: 'get_saldo',
                   type: 'response',
@@ -61,13 +61,13 @@ function getSaldo(content, ch) {
                   ts: new Date().toLocaleString('en-US', { hour12: false })
                 }
               };
-              console.log(" [S] > %s", JSON.stringify(msg));
+              console.log(" [S] > %s", JSON.stringify(result));
               return ch.publish(ex, result.dest, new Buffer(JSON.stringify(result.msg)));
             }
 
             // console.log(`Success: {nilai_saldo: ${nasabah.nilai_saldo}}, counter: ${counter}`);
             var result = {
-              dest: content.sender_id, 
+              dest: `RESP_${content.sender_id}`, 
               msg: {
                 action: 'get_saldo',
                 type: 'response',
@@ -75,13 +75,13 @@ function getSaldo(content, ch) {
                 ts: new Date().toLocaleString('en-US', { hour12: false })
               }
             };
-            console.log(" [S] > %s", JSON.stringify(msg));
+            console.log(" [S] > %s", JSON.stringify(result));
             return ch.publish(ex, result.dest, new Buffer(JSON.stringify(result.msg)));
           });
       } else {
         // console.log(`Error: -2, counter: ${counter}`);
         var result = {
-          dest: content.sender_id, 
+          dest: `RESP_${content.sender_id}`, 
           msg: {
             action: 'get_saldo',
             type: 'response',
@@ -89,14 +89,14 @@ function getSaldo(content, ch) {
             ts: new Date().toLocaleString('en-US', { hour12: false })
           }
         };
-        console.log(" [S] > %s", JSON.stringify(msg));
+        console.log(" [S] > %s", JSON.stringify(result));
         return ch.publish(ex, result.dest, new Buffer(JSON.stringify(result.msg)));
       }
     })
     .catch(err => {
       // console.log(`Error: ${err}`);
       var result = {
-        dest: content.sender_id, 
+        dest: `RESP_${content.sender_id}`, 
         msg: {
           action: 'get_saldo',
           type: 'response',
@@ -104,7 +104,7 @@ function getSaldo(content, ch) {
           ts: new Date().toLocaleString('en-US', { hour12: false })
         }
       };
-      console.log(" [S] > %s", JSON.stringify(msg));
+      console.log(" [S] > %s", JSON.stringify(result));
       return ch.publish(ex, result.dest, new Buffer(JSON.stringify(result.msg)));
     });
 }
