@@ -19,7 +19,7 @@ amqp.connect('amqp://sisdis:sisdis@172.17.0.3:5672', function (err, conn) {
       ch.consume(q.queue, function (msg) {
         console.log(" [A] < %s", msg.content.toString());
         saldo.remove();
-        getTotalSaldo(JSON.parse(msg.content), ch);
+        getTotalSaldoRunner(JSON.parse(msg.content), ch);
       }, { noAck: true });
     });
 
@@ -39,7 +39,7 @@ amqp.connect('amqp://sisdis:sisdis@172.17.0.3:5672', function (err, conn) {
   });
 });
 
-function getTotalSaldo(content, ch) {
+function getTotalSaldoRunner(content, ch) {
   return quorum.count()
     .then(counter => {
       if (counter.length > 5) {
