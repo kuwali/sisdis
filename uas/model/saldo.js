@@ -51,6 +51,6 @@ exports.update = (tambahan) => {
    .getAsync('total_saldo')
    .then(saldo => {
      return store
-      .setAsync('total_saldo', `${Number(saldo)+Number(tambahan));
+      .setAsync('total_saldo', `${Number(saldo)+Number(tambahan)}`);
    });
 };
