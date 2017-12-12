@@ -12,7 +12,7 @@ amqp.connect('amqp://sisdis:sisdis@172.17.0.3:5672', function(err, conn) {
     };
 
     ch.assertExchange(ex, 'direct');
-    ch.publish(ex, `REQ_${msg.user_id}`, msg);
+    ch.publish(ex, `REQ_${msg.user_id}`, new Buffer(JSON.stringify(msg)));
 
     // ch.assertQueue('', {exclusive: true}, function(err, q) {
     //   console.log(" [*] Waiting for getsaldo in %s. To exit press CTRL+C", q.queue);
