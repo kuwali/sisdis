@@ -13,8 +13,17 @@ amqp.connect('amqp://sisdis:sisdis@172.17.0.3:5672', function(err, conn) {
       ch.bindQueue(q.queue, ex, 'REQ_1406543763');
 
       ch.consume(q.queue, function(msg) {
-        console.log(" [S] %s", msg.content.toString());
+        console.log(" [S] < %s", msg.content.toString());
         getSaldo(JSON.parse(msg.content), ch);
+      }, {noAck: true});
+    });
+    
+    ch.assertQueue('', {exclusive: true}, function(err, q) {
+      console.log(" [*] Waiting for getsaldo in %s. To exit press CTRL+C", q.queue);
+      ch.bindQueue(q.queue, ex, 'RESP_1406543763');
+
+      ch.consume(q.queue, function(msg) {
+        console.log(" [S] < %s", msg.content.toString());
       }, {noAck: true});
     });
   });

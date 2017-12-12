@@ -13,7 +13,7 @@ const amqp = require('amqplib/callback_api');
   
         ch.assertExchange(ex, 'fanout', {durable: false});
         ch.publish(ex, '', new Buffer(JSON.stringify(msg)));
-        console.log(" [x] Sent %s", JSON.stringify(msg));
+        console.log(" [P] > %s", JSON.stringify(msg));
       });
   
       setTimeout(function() { conn.close() }, 500);
