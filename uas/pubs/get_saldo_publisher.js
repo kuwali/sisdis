@@ -1,7 +1,7 @@
 const amqp = require('amqplib/callback_api');
 const ex = 'EX_GET_SALDO';
 
-amqp.connect('amqp://sisdis:sisdis@172.17.0.3:5672', function(err, conn) {
+module.exports = samqp.connect('amqp://sisdis:sisdis@172.17.0.3:5672', function(err, conn) {
   conn.createChannel(function(err, ch) {
     var msg = {
       action: 'get_saldo',
