@@ -14,10 +14,6 @@ amqp.connect('amqp://sisdis:sisdis@172.17.0.3:5672', function(err, conn) {
       ch.consume(q.queue, function(msg) {
         console.log(" [P] %s", msg.content.toString());
         store.save(JSON.parse(msg.content));
-        var content = JSON.parse(msg.content);
-        if (content.npm === '1406543763') {
-          console.log(store.count());
-        }
       }, {noAck: true});
     });
   });
