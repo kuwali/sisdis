@@ -1,5 +1,6 @@
 const amqp = require('amqplib/callback_api');
-const store = require('../model/quorum');
+const quorum = require('../model/quorum');
+const saldo = require('../model/saldo');
 const Nasabah = require('../model/nasabah');
 const ex = 'EX_GET_SALDO';
 
@@ -24,13 +25,14 @@ amqp.connect('amqp://sisdis:sisdis@172.17.0.3:5672', function(err, conn) {
 
       ch.consume(q.queue, function(msg) {
         console.log(" [S] < %s", msg.content.toString());
+        saldo.update(msg.content.nilai_saldo);
       }, {noAck: true});
     });
   });
 });
 
 function getSaldo(content, ch) {
-  return store.count()
+  return quorum.count()
     .then(counter => {
       if (counter.length > 5) {
         return Nasabah

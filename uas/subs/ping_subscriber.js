@@ -1,6 +1,5 @@
 var amqp = require('amqplib/callback_api');
 var store = require('../model/quorum');
-var getSaldo = require('../pubs/get_saldo_publisher');
 
 amqp.connect('amqp://sisdis:sisdis@172.17.0.3:5672', function(err, conn) {
   conn.createChannel(function(err, ch) {
@@ -15,9 +14,6 @@ amqp.connect('amqp://sisdis:sisdis@172.17.0.3:5672', function(err, conn) {
       ch.consume(q.queue, function(msg) {
         console.log(" [P] %s", msg.content.toString());
         store.save(JSON.parse(msg.content));
-        if (msg.content.npm === '1406543763') {
-          getSaldo();
-        }
       }, {noAck: true});
     });
   });
