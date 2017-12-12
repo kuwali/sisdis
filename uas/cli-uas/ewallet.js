@@ -1,7 +1,6 @@
 'use-strict'
 
 const program = require('commander');
-const ping = require('./logic/ping').ping;
 const register = require('./logic/register').register;
 const getsaldo = require('./logic/getsaldo').getsaldo;
 const transfer = require('./logic/transfer').transfer;
