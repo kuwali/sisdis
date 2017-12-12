@@ -52,5 +52,5 @@ exports.remove = key => {
 
 exports.count = () => {
   return store
-    .keys();
+    .keys('*');
 }
