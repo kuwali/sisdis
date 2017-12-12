@@ -4,7 +4,7 @@ const Nasabah = require('../model/nasabah');
 
 amqp.connect('amqp://sisdis:sisdis@172.17.0.3:5672', function(err, conn) {
   conn.createChannel(function(err, ch) {
-    var ex = 'EX_GET_SALDO';
+    const ex = 'EX_GET_SALDO';
 
     ch.assertExchange(ex, 'direct');
 
@@ -16,6 +16,8 @@ amqp.connect('amqp://sisdis:sisdis@172.17.0.3:5672', function(err, conn) {
         console.log(" [S] %s", msg.content.toString());
         getSaldo(JSON.parse(msg.content))
           .then(result => {
+            console.log(result.dest);
+            console.log(result.msg);
             ch.publish(ex, result.dest, new Buffer(JSON.stringify(result.msg)));
           })
       }, {noAck: true});
