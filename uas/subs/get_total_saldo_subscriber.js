@@ -1,4 +1,5 @@
 const amqp = require('amqplib/callback_api');
+const Bluebird = require('bluebird');
 const quorum = require('../model/quorum');
 const saldo = require('../model/saldo');
 const Nasabah = require('../model/nasabah');
