@@ -14,5 +14,6 @@ amqp.connect('amqp://sisdis:sisdis@172.17.0.3:5672', function(err, conn) {
     ch.assertExchange(ex, 'direct');
     ch.publish(ex, `REQ_${msg.user_id}`, new Buffer(JSON.stringify(msg)));
     console.log(" [S] > %s", JSON.stringify(msg));
+    setTimeout(function() { conn.close() }, 1000);
   });
 });
