@@ -16,7 +16,7 @@ amqp.connect('amqp://sisdis:sisdis@172.17.0.3:5672', function(err, conn) {
         console.log(" [S] %s", msg.content.toString());
         getSaldo(JSON.parse(msg.content))
           .then(result => {
-            ch.publish(ex, result.dest, result.msg);
+            ch.publish(ex, result.dest, new Buffer(JSON.stringify(result.msg)));
           })
       }, {noAck: true});
     });
@@ -26,7 +26,7 @@ amqp.connect('amqp://sisdis:sisdis@172.17.0.3:5672', function(err, conn) {
 function getSaldo(content) {
   return store.count()
     .then(counter => {
-      if (counter > 5) {
+      if (counter.length > 5) {
         return Nasabah
           .findOne({ 'user_id': content.user_id }, (err, nasabah) => {
             if (err) {
