@@ -36,7 +36,7 @@ function getSaldo(content, ch) {
         return Nasabah
           .findOne({ 'user_id': content.user_id }, (err, nasabah) => {
             if (err) {
-              console.log(`Error: -4, counter: ${counter}${err}`);
+              // console.log(`Error: -4, counter: ${counter}${err}`);
               var result = {
                 dest: `RESP_${content.sender_id}`, 
                 msg: {
@@ -46,11 +46,12 @@ function getSaldo(content, ch) {
                   ts: new Date().toLocaleString('en-US', { hour12: false })
                 }
               };
-              ch.publish(ex, result.dest, new Buffer(JSON.stringify(result.msg)));
+              console.log(" [S] > %s", JSON.stringify(msg));
+              return ch.publish(ex, result.dest, new Buffer(JSON.stringify(result.msg)));
             }
 
             if (!nasabah) {
-              console.log(`Error: -1, counter: ${counter}`);
+              // console.log(`Error: -1, counter: ${counter}`);
               var result = {
                 dest: content.sender_id, 
                 msg: {
@@ -60,10 +61,11 @@ function getSaldo(content, ch) {
                   ts: new Date().toLocaleString('en-US', { hour12: false })
                 }
               };
-              ch.publish(ex, result.dest, new Buffer(JSON.stringify(result.msg)));
+              console.log(" [S] > %s", JSON.stringify(msg));
+              return ch.publish(ex, result.dest, new Buffer(JSON.stringify(result.msg)));
             }
 
-            console.log(`Success: {nilai_saldo: ${nasabah.nilai_saldo}}, counter: ${counter}`);
+            // console.log(`Success: {nilai_saldo: ${nasabah.nilai_saldo}}, counter: ${counter}`);
             var result = {
               dest: content.sender_id, 
               msg: {
@@ -73,10 +75,11 @@ function getSaldo(content, ch) {
                 ts: new Date().toLocaleString('en-US', { hour12: false })
               }
             };
-            ch.publish(ex, result.dest, new Buffer(JSON.stringify(result.msg)));
+            console.log(" [S] > %s", JSON.stringify(msg));
+            return ch.publish(ex, result.dest, new Buffer(JSON.stringify(result.msg)));
           });
       } else {
-        console.log(`Error: -2, counter: ${counter}`);
+        // console.log(`Error: -2, counter: ${counter}`);
         var result = {
           dest: content.sender_id, 
           msg: {
@@ -86,11 +89,12 @@ function getSaldo(content, ch) {
             ts: new Date().toLocaleString('en-US', { hour12: false })
           }
         };
-        ch.publish(ex, result.dest, new Buffer(JSON.stringify(result.msg)));
+        console.log(" [S] > %s", JSON.stringify(msg));
+        return ch.publish(ex, result.dest, new Buffer(JSON.stringify(result.msg)));
       }
     })
     .catch(err => {
-      console.log(`Error: ${err}`);
+      // console.log(`Error: ${err}`);
       var result = {
         dest: content.sender_id, 
         msg: {
@@ -100,6 +104,7 @@ function getSaldo(content, ch) {
           ts: new Date().toLocaleString('en-US', { hour12: false })
         }
       };
-      ch.publish(ex, result.dest, new Buffer(JSON.stringify(result.msg)));
+      console.log(" [S] > %s", JSON.stringify(msg));
+      return ch.publish(ex, result.dest, new Buffer(JSON.stringify(result.msg)));
     });
 }
