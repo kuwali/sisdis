@@ -52,5 +52,7 @@ exports.remove = key => {
 
 exports.count = () => {
   return store
-    .keys('*');
+    .keys('*', (err, replies) => {
+      return replies.toString();
+    });
 }
