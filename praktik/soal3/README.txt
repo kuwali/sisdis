@@ -1,0 +1,3 @@
+Menurut saya yang paling cocok dalam kasus ini adalah Never, karena akan mencetak hasil lebih baik dan sesuai dengan depkripsi soal. Maksudnya pesan memang akan dicetak sebelum terjadi crash, sedangkan apabila terjadi crash, maka pesan tidak akan di cetak.
+
+Solusi terbaik adalah dengan selalu mencetak apabila menerima pesan, sehingga client akan segera mengetahui ada nilai yang masuk. Error yang muncul berikutnya dapat ditangani.

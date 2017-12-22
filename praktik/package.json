@@ -1,0 +1,14 @@
+{
+  "name": "praktik",
+  "version": "1.0.0",
+  "description": "Praktik Akhir Semester",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kustiawanto Halim",
+  "license": "MIT",
+  "dependencies": {
+    "amqplib": "^0.5.2"
+  }
+}
